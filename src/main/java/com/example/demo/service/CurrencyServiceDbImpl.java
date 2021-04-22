@@ -31,7 +31,12 @@ public class CurrencyServiceDbImpl implements CurrencyService {
     }
 
     @Override
-    public Currency updateCurrency() {
-        return null;
+    public Currency updateCurrency(Currency currency) {
+        return currencyRepository.save(currency);
+    }
+
+    @Override
+    public List<Currency> updateAllCurrency(List<Currency> currencyList) {
+        return currencyRepository.saveAll(currencyList);
     }
 }

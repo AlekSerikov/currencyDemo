@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public enum Role {
     USER(Set.of(Permission.GET_ALL_CURRENCY)),
-    ADMIN(Set.of(Permission.GET_ALL_CURRENCY, Permission.GET_PARTICULAR_CURRENCY));
+    ADMIN(Set.of(Permission.GET_ALL_CURRENCY, Permission.GET_PARTICULAR_CURRENCY, Permission.UPDATE_CURRENCY));
 
     Role(Set<Permission> permissions) {
         this.permissions = permissions;

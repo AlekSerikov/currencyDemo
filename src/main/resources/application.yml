@@ -2,6 +2,8 @@ exchangeRateURL: https://v6.exchangerate-api.com/v6/f40ba9794464d382433580d9/lat
 
 serviceImpl: CurrencyServiceThirdSideImpl
 
+#serviceImpl: CurrencyServiceDbImpl
+
 spring:
   datasource:
     password: 72305

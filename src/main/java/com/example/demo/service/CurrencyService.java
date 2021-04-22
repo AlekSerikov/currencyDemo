@@ -10,6 +10,7 @@ public interface CurrencyService {
 
     Currency getCurrencyByName(String name);
 
-    Currency updateCurrency();
+    Currency updateCurrency(Currency currency);
 
+    List<Currency> updateAllCurrency(List<Currency> currencyList);
 }

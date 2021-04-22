@@ -7,10 +7,6 @@ import javax.persistence.*;
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "name")
     private String name;
 
@@ -20,23 +16,13 @@ public class Currency {
     public Currency() {
     }
 
+    public Currency(double value) {
+        this.value = value;
+    }
+
     public Currency(String name, double value) {
         this.name = name;
         this.value = value;
-    }
-
-    public Currency(int id, String name, double value) {
-        this.id = id;
-        this.name = name;
-        this.value = value;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -58,8 +44,7 @@ public class Currency {
     @Override
     public String toString() {
         return "Currency{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", value=" + value +
                 '}';
     }

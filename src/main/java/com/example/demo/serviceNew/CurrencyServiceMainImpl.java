@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.serviceNew;
 
 import com.example.demo.dao.CurrencyRepository;
 import com.example.demo.entity.Currency;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class CurrencyServiceThirdSideImpl implements CurrencyService {
+public class CurrencyServiceMainImpl implements CurrencyServiceMain{
 
     @Autowired
     private RestTemplate restTemplate;
@@ -25,11 +25,13 @@ public class CurrencyServiceThirdSideImpl implements CurrencyService {
     private String exchangeRateURL;
 
     @Autowired
-    CurrencyRepository currencyRepository;
+    protected CurrencyRepository currencyRepository;
 
     @Override
     public List<Currency> getAllCurrency() {
-        return currencyRepository.findAll();
+        return getCurrencyRatesFromUrl(exchangeRateURL).entrySet().stream()
+                .map(entry -> new Currency(entry.getKey(), 1 / entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -39,20 +41,6 @@ public class CurrencyServiceThirdSideImpl implements CurrencyService {
                 .findAny()
                 .orElseThrow(() -> new NoSuchCurrencyException("There is no currency with name " + name));
     }
-
-    @Override
-    public Currency updateCurrency(Currency currency) {
-        return currencyRepository.save(currency);
-    }
-
-    @Override
-    public List<Currency> updateAllCurrency(List<Currency> currencyList) {
-        if (currencyList == null|| currencyList.isEmpty()){
-            return updateDbFromCurrencyApi();
-        }
-        return currencyRepository.saveAll(currencyList);
-    }
-
 
     private Map<String, Double> getCurrencyRatesFromUrl(String URL) {
         ResponseEntity<CurrencyInfo> currencyInfoResponseEntity
@@ -64,13 +52,5 @@ public class CurrencyServiceThirdSideImpl implements CurrencyService {
         } else {
             throw new InternalServerErrorException("Internal server error");
         }
-    }
-
-    private List<Currency> updateDbFromCurrencyApi() {
-        List<Currency> currencyList = getCurrencyRatesFromUrl(exchangeRateURL).entrySet().stream()
-                .map(entry -> new Currency(entry.getKey(), 1 / entry.getValue()))
-                .collect(Collectors.toList());
-
-        return currencyRepository.saveAll(currencyList);
     }
 }

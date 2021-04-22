@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Currency;
 import com.example.demo.service.CurrencyService;
+import com.example.demo.serviceNew.CurrencyApiService;
+import com.example.demo.serviceNew.CurrencyDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,23 +16,27 @@ import java.util.List;
 @RestController
 public class CurrencyController {
 
-    @Resource(name = "serviceImplFactory")
-    private CurrencyService currencyService;
+//    @Resource(name = "serviceImplFactory")
+//    private CurrencyService currencyService;
 
+    @Autowired
+    private CurrencyApiService currencyApiService;
+
+    @Autowired
+    private CurrencyDbService currencyDbService;
 
     @GetMapping("/currency")
     public List<Currency> getCurrencies() {
-        return currencyService.getAllCurrency();
+        return currencyDbService.getAllCurrency();
     }
 
     @GetMapping("/currency/{name}")
     public Currency getCurrencyByName(@PathVariable String name) {
-        return currencyService.getCurrencyByName(name);
+        return currencyDbService.getCurrencyByName(name);
     }
 
     @PutMapping("/currency")
-    public Currency updateCurrency (@RequestBody Currency currency){
-
-        return null;
+    public List<Currency> updateCurrency (){
+        return currencyApiService.updateDatabaseFromApi();
     }
 }
