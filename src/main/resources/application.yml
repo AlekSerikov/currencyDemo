@@ -1,0 +1,11 @@
+exchangeRateURL: https://v6.exchangerate-api.com/v6/f40ba9794464d382433580d9/latest/BYN
+
+serviceImpl: CurrencyServiceThirdSideImpl
+
+spring:
+  datasource:
+    password: 72305
+    url: jdbc:mysql://localhost:3306/currency?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+#  jackson:
+#    property-naming-strategy: SNAKE_CASE
