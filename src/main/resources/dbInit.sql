@@ -4,6 +4,11 @@ name VARCHAR(30) NOT NULL,
 value double
 )
 
+CREATE TABLE currencies (
+name VARCHAR(30) NOT NULL PRIMARY KEY,
+value double
+)
+
 insert into currencies (name, value) values ('USD', 2.593);
 
 CREATE TABLE `currency`.`users` (

@@ -1,10 +1,9 @@
-package com.example.demo.serviceNew;
+package com.example.demo.service;
 
 import com.example.demo.dao.CurrencyRepository;
 import com.example.demo.entity.Currency;
 import com.example.demo.entity.CurrencyInfo;
 import com.example.demo.handlers.exceptions.InternalServerErrorException;
-import com.example.demo.handlers.exceptions.NoSuchCurrencyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class CurrencyServiceMainImpl implements CurrencyServiceMain{
+public class CurrencyApiServiceImpl implements CurrencyApiService {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -32,14 +31,6 @@ public class CurrencyServiceMainImpl implements CurrencyServiceMain{
         return getCurrencyRatesFromUrl(exchangeRateURL).entrySet().stream()
                 .map(entry -> new Currency(entry.getKey(), 1 / entry.getValue()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Currency getCurrencyByName(String name) {
-        return getAllCurrency().stream()
-                .filter(currency -> currency.getName().equalsIgnoreCase(name))
-                .findAny()
-                .orElseThrow(() -> new NoSuchCurrencyException("There is no currency with name " + name));
     }
 
     private Map<String, Double> getCurrencyRatesFromUrl(String URL) {

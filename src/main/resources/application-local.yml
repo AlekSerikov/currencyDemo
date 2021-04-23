@@ -5,5 +5,3 @@ spring:
     password: 72305
     url: jdbc:postgresql://localhost:5432/currency
     username: postgres
-#  profiles:
-#    active: local

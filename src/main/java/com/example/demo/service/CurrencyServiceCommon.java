@@ -4,13 +4,12 @@ import com.example.demo.entity.Currency;
 
 import java.util.List;
 
-public interface CurrencyService {
+public interface CurrencyServiceCommon {
 
     List<Currency> getAllCurrency();
 
     Currency getCurrencyByName(String name);
 
-    Currency updateCurrency(Currency currency);
+    List<Currency> updateCurrency();
 
-    List<Currency> updateAllCurrency(List<Currency> currencyList);
 }
